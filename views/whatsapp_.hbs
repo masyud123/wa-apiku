@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center h-100 align-items-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-1 d-none d-md-block"></div>
+                    <div class="col-10 text-center">
+                        <h2><strong>Whatsapp API</strong></h2>
+                    </div>
+                    <div class="col-1 text-right d-flex align-items-center">
+                        <button type="button" id="logout" class="btn btn-danger btn-sm active"><i class="fa fa-power-off" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body a"  style="max-height: 80vh" >
+                <div class="d-flex justify-content-center">
+                    <div style="height: 80vh;">
+                        <div class="row" >
+                            <div class="col-md-8">
+                                <br><div>
+                                    <h3>Untuk menggunakan WhatsApp API pada komputer Anda:</h3>
+                                </div>
+                                <br><br>
+                                <div>
+                                    <h5>1. Buka aplikasi WhatsApp pada telepon Anda</h5>
+                                    <h5>2. Ketuk <strong>Menu</strong> atau <strong>Setelan</strong> dan pilih <strong>Perangkat tertaut</strong></span>
+                                    <h5>3. Arahkan telepon Anda ke layar ini untuk memindai kode tersebut</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="app">
+                                    <div align="center" class="mb-2">
+                                        <div id="loading" class="d-flex align-items-center justify-content-center" style="height: 280px;">
+                                            <i class="fa fa-spinner fa-5x fa-spin"></i>
+                                        </div>
+                                        <img src="" alt="QR Code" id="qrcode" width="93%" style="display: none;">
+                                    </div>
+                                    <div class="bg-light p-3" style="border-radius: 20px">
+                                        <h4>Logs:</h4>
+                                        <div style="height: 100px; overflow: auto;">
+                                            <ul class="logs"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+<script type="text/javascript">  function preventBack() {window.history.forward();}  setTimeout("preventBack()", 0);  window.onunload = function () {null};</script>
+<script>
+    $(document).ready(function() {
+		var socket = io.connect();
+
+        socket.on('message', function(msg) {
+			$('.logs').append($('<li>').text(msg));
+		});
+
+        socket.on('qr', function(src) {
+            $('#qrcode').attr('src', src);
+            $('#qrcode').show();
+
+            if (src != ''){
+                $('#loading').remove();
+            }
+        });
+
+        socket.on('ready', function(data) {
+            $('#qrcode').hide();
+            $('#loading').remove();
+        });
+
+        socket.on('authenticated', function(data) {
+            $('#qrcode').hide();
+            $('#loading').remove();
+        });
+
+        $('#logout').click(function() {
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: "Apakah Anda yakin ingin keluar ?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/logout";
+                }
+            });
+        });
+    });
+</script>

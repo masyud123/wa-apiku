@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center h-100 align-items-center">
+    <div class="col-12 col-md-8 col-lg-5 mt-3 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <h3><strong>Login Whatsapp Api</strong></h3>
+                </div>
+            </div>
+            <div class="card-body">
+
+                {{#if message}}
+                    <div id="alert" class="alert {{messageClass}} alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {{/if}}
+
+                <form method="POST" action="/login">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input required name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input required name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function(){
+        $('#alert').remove();
+    }, 3000);
+</script>

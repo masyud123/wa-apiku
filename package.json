@@ -1,0 +1,25 @@
+{
+  "name": "whatsapp-apiku",
+  "version": "1.0.0",
+  "description": "proyek wa-api",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mamad",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.4",
+    "express-validator": "^6.14.0",
+    "http": "^0.0.1-security",
+    "pg": "^8.7.3",
+    "qrcode": "^1.5.0",
+    "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.4.1",
+    "whatsapp-web.js": "^1.16.5"
+  }
+}
